@@ -19,11 +19,11 @@ class TodoListApplicationTests {
 		var todo = new Todo("todo", "todo 1", false, 0);
 		
 		webTestClient
-			.post()
-			.uri("/todos")
-			.bodyValue(todo)
-			.exchange()
-			.expectStatus().isOk();
+				.post()
+				.uri("/todos")
+				.bodyValue(todo)
+				.exchange()
+				.expectStatus().isOk();
 	}
 
 	@Test
@@ -41,9 +41,93 @@ class TodoListApplicationTests {
 	@Test
 	void testNotFoundTodo() {
 		webTestClient
-			.get()
-			.uri("/todos/1")
-			.exchange()
-			.expectStatus().isNotFound();
+				.get()
+				.uri("/todos/1")
+				.exchange()
+				.expectStatus().isNotFound();
+	}
+	
+	@Test
+	@Sql("/import.sql")
+	void testTodoListLength() {
+
+		webTestClient
+				.get()
+				.uri("/todos")
+				.exchange()
+				.expectStatus().isOk()
+				.expectBody()
+				.jsonPath("$.length()").isEqualTo(3);
+	}
+	
+	@Test
+	@Sql("/import.sql")
+	void testIdFromTodoList() {
+
+		webTestClient
+				.get()
+				.uri("/todos")
+				.exchange()
+				.expectStatus().isOk()
+				.expectBody()
+				.jsonPath("$[1].id").isEqualTo(15);
+	}
+	
+	@Test
+	@Sql("/import.sql")
+	void testDeleteTodo() {
+
+		webTestClient
+				.delete()
+				.uri("/todos/99")
+				.exchange()
+				.expectStatus().isOk();
+	}
+	
+	@Test
+	@Sql("/import.sql")
+	void testDeleteNotFoundTodo() {
+
+		webTestClient
+				.delete()
+				.uri("/todos/2")
+				.exchange()
+				.expectStatus().isNotFound();
+	}
+	
+	@Test
+	@Sql("/import.sql")
+	void testUpdateTodoSuccess() {
+		Todo todo = new Todo();
+		todo.setId(1L);
+		todo.setTitle("Updated Title");
+		todo.setDescription("Updated Description");
+		todo.setFinished(true);
+		todo.setPriority(1);
+
+		webTestClient
+				.put()
+				.uri("/todos")
+				.bodyValue(todo)
+				.exchange()
+				.expectStatus().isOk();
+	}
+	
+	@Test
+	@Sql("/import.sql")
+	void testUpdateTodoFailure() {
+		Todo todo = new Todo();
+		todo.setId(1L);
+		todo.setTitle("");
+		todo.setDescription("Updated Description");
+		todo.setFinished(true);
+		todo.setPriority(1);
+		
+		webTestClient
+				.put()
+				.uri("/todos")
+				.bodyValue(todo)
+				.exchange()
+				.expectStatus().isBadRequest();
 	}
 }
