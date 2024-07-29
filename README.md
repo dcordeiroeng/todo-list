@@ -66,7 +66,7 @@ Este é um projeto de exemplo de uma aplicação de lista de tarefas (Todo List)
 - **Método**: `GET`
 - **Response**: Detalhes do todo.
 
-### Como Executar a Aplicação
+## Como Executar a Aplicação
 
 Clone o repositório:
 
@@ -80,13 +80,13 @@ Execute a aplicação:
 
 `./mvnw spring-boot:run`
 
-### Testes
+## Testes
 
 Para executar os testes, use o seguinte comando:
 
 `./mvnw test`
 
-### Contribuição
+## Contribuição
 
 Faça um fork do projeto.
 
@@ -104,7 +104,7 @@ Envie para o repositório remoto:
 
 Abra um Pull Request.
 
-### Licença
+## Licença
 
 Este projeto está licenciado sob a Licença MIT. Veja o arquivo LICENSE para mais detalhes.
 
