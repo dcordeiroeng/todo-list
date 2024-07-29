@@ -30,8 +30,8 @@ Este é um projeto de exemplo de uma aplicação de lista de tarefas (Todo List)
   {
     "title": "string",
     "description": "string",
-    "finished": boolean,
-    "priority": integer
+    "finished": "boolean",
+    "priority": "integer"
   }
 
 ### Atualizar um *todo*
@@ -41,11 +41,11 @@ Este é um projeto de exemplo de uma aplicação de lista de tarefas (Todo List)
 - **Request Body**:
   ```json
   {
-    "id": integer,
+    "id": "integer",
     "title": "string",
     "description": "string",
-    "finished": boolean,
-    "priority": integer
+    "finished": "boolean",
+    "priority": "integer"
   }
 
 ### Deletar um *todo*
